@@ -61,6 +61,28 @@ const reviews = [
   { name: "Gaëtan Piquenot", date: "Août 2025", text: "Quick, polite, efficient" },
 ];
 
+const galleryItems = [
+  {
+    src: "/dlh-plomberie/images/intervention-facade.webp",
+    alt: "Technicien DLH Plomberie intervenant en hauteur sur une façade",
+    eyebrow: "Accès technique",
+    title: "Intervention en façade",
+  },
+  {
+    src: "/dlh-plomberie/images/coin-eau-renove.webp",
+    alt: "Coin d’eau avec meuble blanc et évier",
+    eyebrow: "Aménagement",
+    title: "Coin d’eau",
+  },
+  {
+    src: "/dlh-plomberie/images/sanitaire.webp",
+    alt: "Équipement sanitaire et robinetterie",
+    eyebrow: "Sanitaire",
+    title: "Raccordement et équipement",
+  },
+];
+
+
 const quoteServices = [
   "Recherche de fuite",
   "Installation de WC",
@@ -93,6 +115,81 @@ function PhoneIcon() {
 function ArrowIcon() { return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>; }
 function CheckIcon() { return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.2 4.2L19 7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>; }
 function CameraIcon() { return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5h4l1.4-2h5.2l1.4 2h4a2 2 0 0 1 2 2v8.5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.5a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" /><circle cx="12" cy="13.5" r="3.4" fill="none" stroke="currentColor" strokeWidth="1.7" /></svg>; }
+
+
+function GalleryCarousel() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeItem = galleryItems[activeIndex];
+
+  function showPrevious() {
+    setActiveIndex((current) =>
+      current === 0 ? galleryItems.length - 1 : current - 1,
+    );
+  }
+
+  function showNext() {
+    setActiveIndex((current) => (current + 1) % galleryItems.length);
+  }
+
+  return (
+    <div className="gallery-carousel">
+      <div className="gallery-carousel-stage">
+        <img
+          src={activeItem.src}
+          alt={activeItem.alt}
+          className="gallery-carousel-image"
+        />
+
+        <div className="gallery-carousel-caption">
+          <span>{activeItem.eyebrow}</span>
+          <strong>{activeItem.title}</strong>
+        </div>
+
+        <button
+          type="button"
+          className="gallery-carousel-arrow gallery-carousel-arrow-left"
+          onClick={showPrevious}
+          aria-label="Photo précédente"
+        >
+          ←
+        </button>
+
+        <button
+          type="button"
+          className="gallery-carousel-arrow gallery-carousel-arrow-right"
+          onClick={showNext}
+          aria-label="Photo suivante"
+        >
+          →
+        </button>
+      </div>
+
+      <div className="gallery-carousel-footer">
+        <div className="gallery-carousel-dots" aria-label="Choisir une photo">
+          {galleryItems.map((item, index) => (
+            <button
+              type="button"
+              key={item.src}
+              className={
+                index === activeIndex
+                  ? "gallery-carousel-dot gallery-carousel-dot-active"
+                  : "gallery-carousel-dot"
+              }
+              onClick={() => setActiveIndex(index)}
+              aria-label={`Afficher la photo ${index + 1}`}
+              aria-pressed={index === activeIndex}
+            />
+          ))}
+        </div>
+
+        <span className="gallery-carousel-count">
+          {String(activeIndex + 1).padStart(2, "0")} /{" "}
+          {String(galleryItems.length).padStart(2, "0")}
+        </span>
+      </div>
+    </div>
+  );
+}
 
 function QuoteWorkflow() {
   const [step, setStep] = useState(0);
@@ -834,27 +931,35 @@ export default function Home() {
               <div><strong>09h–20h</strong><span>Du lundi au jeudi</span></div>
             </div>
           </div>
-          <div className="hero-visual">
-            <div className="hero-image-frame"><img src="/dlh-plomberie/images/intervention-facade.webp" alt="Intervention de plomberie sur une façade à Romainville" /></div>
-            <div className="hero-badge"><img src="/dlh-plomberie/logo/dlh-mark.png" alt="Logo rond DLH Plomberie" /><div><span>Dépannage</span><strong>Service · Assistance</strong></div></div>
-            <div className="hero-rating"><span>★★★★★</span><strong>216 avis</strong><small>Google</small></div>
+          <div className="hero-visual hero-logo-visual">
+            <span className="hero-logo-grid" aria-hidden="true" />
+            <span className="hero-logo-orbit hero-logo-orbit-outer" aria-hidden="true" />
+            <span className="hero-logo-orbit hero-logo-orbit-inner" aria-hidden="true" />
+            <span className="hero-logo-accent hero-logo-accent-red" aria-hidden="true" />
+            <span className="hero-logo-accent hero-logo-accent-blue" aria-hidden="true" />
+
+            <div className="hero-logo-stage">
+              <img
+                src="/dlh-plomberie/logo/dlh-mark.png"
+                alt="Logo DLH Plomberie"
+              />
+            </div>
           </div>
         </div>
       </section>
 
       <section className="trust-strip" aria-label="Repères de confiance">
         <div className="shell trust-grid">
-          <div><span>01</span><strong>Réactivité</strong><p>Des avis qui parlent d’interventions rapides et de solutions trouvées sans perdre de temps.</p></div>
-          <div><span>02</span><strong>Travail propre</strong><p>Plusieurs clients insistent sur la propreté laissée après le passage de l’équipe.</p></div>
-          <div><span>03</span><strong>Conseils utiles</strong><p>Des recommandations appréciées lors de dépannages comme de rénovations complètes.</p></div>
+          <div><strong>Réactivité</strong></div>
+          <div><strong>Travail propre</strong></div>
+          <div><strong>Conseils utiles</strong></div>
         </div>
       </section>
 
       <section className="section services-section" id="services">
         <div className="shell">
-          <div className="section-heading split-heading">
+          <div className="section-heading section-heading-single">
             <div><p className="eyebrow">Prestations affichées</p><h2>La plomberie, organisée autour de votre problème.</h2></div>
-            <p>Les services ci-dessous reprennent uniquement les prestations indiquées sur le profil de l’entreprise.</p>
           </div>
           <div className="services-board">
             {serviceFamilies.map((service) => (
@@ -868,24 +973,16 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section method-section">
-        <div className="shell method-grid">
-          <div className="method-photo"><img src="/dlh-plomberie/images/depannage-sous-evier.webp" alt="Illustration d’une intervention sous un évier" /><div className="method-label">Du diagnostic à la remise en service</div></div>
-          <div className="method-copy"><p className="eyebrow eyebrow-light">Une demande mieux préparée</p><h2>Expliquez le problème avant l’intervention.</h2><p>Le formulaire permet d’indiquer le service recherché, l’urgence, l’adresse, la date souhaitée et de joindre jusqu’à cinq photographies.</p>
-            <ol><li><span>1</span><div><strong>Choisir le besoin</strong><p>Fuite, chauffe-eau, WC, douche, robinetterie ou canalisation.</p></div></li><li><span>2</span><div><strong>Décrire le contexte</strong><p>Préciser les symptômes, l’équipement et l’urgence.</p></div></li><li><span>3</span><div><strong>Joindre des photos</strong><p>Faciliter la compréhension avant le rappel.</p></div></li></ol>
-            <a className="text-link" href="#devis">Commencer la demande <ArrowIcon /></a>
-          </div>
-        </div>
-      </section>
-
       <section className="section gallery-section" id="realisations">
         <div className="shell">
-          <div className="section-heading gallery-heading"><div><p className="eyebrow">Photographies fournies</p><h2>Des interventions visibles, sans mise en scène artificielle.</h2></div><p>Les images ont été recadrées et optimisées pour le web sans modifier le travail présenté.</p></div>
-          <div className="gallery-grid">
-            <figure className="gallery-tall"><img src="/dlh-plomberie/images/intervention-facade.webp" alt="Technicien DLH Plomberie intervenant en hauteur sur une façade" /><figcaption><span>Accès technique</span><strong>Intervention en façade</strong></figcaption></figure>
-            <figure><img src="/dlh-plomberie/images/coin-eau-renove.webp" alt="Coin d’eau avec meuble blanc et évier" /><figcaption><span>Aménagement</span><strong>Coin d’eau</strong></figcaption></figure>
-            <figure><img src="/dlh-plomberie/images/sanitaire.webp" alt="Équipement sanitaire et robinetterie" /><figcaption><span>Sanitaire</span><strong>Raccordement et équipement</strong></figcaption></figure>
+          <div className="section-heading section-heading-single gallery-heading">
+            <div>
+              <p className="eyebrow">Photographies fournies</p>
+              <h2>Des interventions visibles, sans mise en scène artificielle.</h2>
+            </div>
           </div>
+
+          <GalleryCarousel />
         </div>
       </section>
 
