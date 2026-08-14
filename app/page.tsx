@@ -928,15 +928,17 @@ export default function Home() {
             <div className="hero-proof">
               <div><strong>4,9/5</strong><span>216 avis Google</span></div>
               <div><strong>4,9/5</strong><span>207 avis Infobel</span></div>
-              <div><strong>09h–20h</strong><span>Du lundi au jeudi</span></div>
+              <div><strong>6j/7</strong><span>Ouvert · samedi fermé</span></div>
             </div>
           </div>
           <div className="hero-visual hero-logo-visual">
+            <span className="hero-logo-glow" aria-hidden="true" />
             <span className="hero-logo-grid" aria-hidden="true" />
-            <span className="hero-logo-orbit hero-logo-orbit-outer" aria-hidden="true" />
-            <span className="hero-logo-orbit hero-logo-orbit-inner" aria-hidden="true" />
-            <span className="hero-logo-accent hero-logo-accent-red" aria-hidden="true" />
-            <span className="hero-logo-accent hero-logo-accent-blue" aria-hidden="true" />
+            <span className="hero-logo-ring hero-logo-ring-outer" aria-hidden="true" />
+            <span className="hero-logo-ring hero-logo-ring-inner" aria-hidden="true" />
+            <span className="hero-logo-dot hero-logo-dot-one" aria-hidden="true" />
+            <span className="hero-logo-dot hero-logo-dot-two" aria-hidden="true" />
+            <span className="hero-logo-dot hero-logo-dot-three" aria-hidden="true" />
 
             <div className="hero-logo-stage">
               <img
@@ -970,19 +972,6 @@ export default function Home() {
               </article>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="section gallery-section" id="realisations">
-        <div className="shell">
-          <div className="section-heading section-heading-single gallery-heading">
-            <div>
-              <p className="eyebrow">Photographies fournies</p>
-              <h2>Des interventions visibles, sans mise en scène artificielle.</h2>
-            </div>
-          </div>
-
-          <GalleryCarousel />
         </div>
       </section>
 
