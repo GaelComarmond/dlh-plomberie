@@ -915,7 +915,6 @@ export default function Home() {
       <SiteHeader />
 
       <section className="hero" id="accueil">
-        <div className="hero-roofline" aria-hidden="true" />
         <div className="shell hero-grid">
           <div className="hero-copy">
             <p className="hero-kicker"><span />Plombier à Romainville</p>
@@ -934,8 +933,11 @@ export default function Home() {
           <div className="hero-visual hero-logo-visual">
             <span className="hero-logo-glow" aria-hidden="true" />
             <span className="hero-logo-grid" aria-hidden="true" />
-            <span className="hero-logo-ring hero-logo-ring-outer" aria-hidden="true" />
-            <span className="hero-logo-ring hero-logo-ring-inner" aria-hidden="true" />
+            <span className="hero-logo-orbit hero-logo-orbit-left" aria-hidden="true" />
+            <span className="hero-logo-orbit hero-logo-orbit-right" aria-hidden="true" />
+            <span className="hero-pipe-route" aria-hidden="true" />
+            <span className="hero-pipe-joint hero-pipe-joint-one" aria-hidden="true" />
+            <span className="hero-pipe-joint hero-pipe-joint-two" aria-hidden="true" />
             <span className="hero-logo-dot hero-logo-dot-one" aria-hidden="true" />
             <span className="hero-logo-dot hero-logo-dot-two" aria-hidden="true" />
             <span className="hero-logo-dot hero-logo-dot-three" aria-hidden="true" />
